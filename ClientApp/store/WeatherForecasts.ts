@@ -49,6 +49,8 @@ export const actionCreators = {
                 .then(response => response.json() as Promise<WeatherForecast[]>)
                 .then(data => {
                     dispatch({ type: 'RECEIVE_WEATHER_FORECASTS', startDateIndex: startDateIndex, forecasts: data });
+                    return fetch(`/api/SampleData/WeatherForecasts?startDateIndex=${startDateIndex + 1}`)
+                        .then(response => response.json());
                 });
 
             addTask(fetchTask); // Ensure server-side prerendering waits for this to complete
